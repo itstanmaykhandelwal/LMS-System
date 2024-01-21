@@ -1,6 +1,5 @@
 "use client"
 import React, { useState } from 'react'
-
 const CategoryFilter = () => {
     const [activeIndex,setActiveIndex] = useState(0)
     const filterOptions = [
