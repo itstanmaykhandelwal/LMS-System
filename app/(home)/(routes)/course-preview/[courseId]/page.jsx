@@ -4,6 +4,7 @@ import { getCourseById } from '../../../../_services';
 import VideoPlayer from './_components/VideoPlayer';
 import CourseDetails from './_components/CourseDetails';
 import OptionSection from './_components/OptionSection';
+import EnrollmentSection from './_components/EnrollmentSection';
 
 const CoursePreview = ({ params }) => {
     const [courseDetail, setCourseDetails] = useState([]);
@@ -23,14 +24,15 @@ const CoursePreview = ({ params }) => {
 
     return courseDetail?.name && (
         <div>
-            <div className='grid grid-cols-1 md:grid-cols-3'>
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
                 <div className='col-span-2'>
-                    <VideoPlayer 
-                    videoUrl={courseDetail?.chapter[0]?.video.url} />
+                    {courseDetail?.chapter[0]?<VideoPlayer 
+                    videoUrl={courseDetail?.chapter[0]?.video.url} /> :null}
                     <CourseDetails courseDetail={courseDetail}/>
                 </div>
-                <div className='mx-5'>
+                <div className='mt-5 md:mt-0'>
                     <OptionSection/>
+                    <EnrollmentSection courseDetail={courseDetail}/>
                 </div>
             </div>
         </div>
