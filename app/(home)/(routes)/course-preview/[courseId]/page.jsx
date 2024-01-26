@@ -5,16 +5,19 @@ import VideoPlayer from './_components/VideoPlayer';
 import CourseDetails from './_components/CourseDetails';
 import OptionSection from './_components/OptionSection';
 import EnrollmentSection from './_components/EnrollmentSection';
+import { useUser } from '@clerk/nextjs';
 
 const CoursePreview = ({ params }) => {
     const [courseDetail, setCourseDetails] = useState([]);
+    const {user} = useUser();
     useEffect(() => {
         console.log(params.courseId)
         params.courseId ? getCourse(params.courseId) : null;
-    }, [])
+    }, [user])
 
     const getCourse = () => {
-        getCourseById(params.courseId).then(res => {
+        getCourseById(params.courseId,user?.primaryEmailAddress?.emailAddress)
+        .then(res => {
             console.log(res);
             setCourseDetails(res.courseList);
         })
