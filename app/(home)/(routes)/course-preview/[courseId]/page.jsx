@@ -9,6 +9,8 @@ import { useUser } from '@clerk/nextjs';
 
 const CoursePreview = ({ params }) => {
     const [courseDetail, setCourseDetails] = useState([]);
+    const [userCourse, setUserCourse] = useState([]);
+
     const {user} = useUser();
     useEffect(() => {
         console.log(params.courseId)
@@ -20,6 +22,7 @@ const CoursePreview = ({ params }) => {
         .then(res => {
             console.log(res);
             setCourseDetails(res.courseList);
+            setUserCourse(res.userEnrollCourses[0])
         })
     }
     // console.log(courseDetails.chapter && courseDetails.chapter.length > 0 ? courseDetails.chapter[0]?.video.url : "No video URL available");
@@ -35,7 +38,7 @@ const CoursePreview = ({ params }) => {
                 </div>
                 <div className='mt-5 md:mt-0'>
                     <OptionSection/>
-                    <EnrollmentSection courseDetail={courseDetail}/>
+                    <EnrollmentSection courseDetail={courseDetail} userCourse={userCourse}/>
                 </div>
             </div>
         </div>
